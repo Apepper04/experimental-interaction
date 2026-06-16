@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nebula Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+    <!-- Starfield — always fixed behind both screens -->
+    <div id="starfield"></div>
+
+    <!-- ── Screen 1: Input ── -->
+    <div id="screen-input" class="screen active">
+
+      <div id="header">
+        <span class="eyebrow">Alex Pepper &mdash; Experimental Interaction &mdash; MCAD Summer &rsquo;26</span>
+        <h1>Nebula Generator</h1>
+      </div>
+
+      <div id="form-panel">
+
+        <p id="instructions">
+          Every nebula in the universe is unique. So is yours.
+          Enter your details below to generate a nebula that belongs
+          only to you. The same answers will always produce the same nebula.
+        </p>
+
+        <div id="input-panel">
+
+          <!-- Last Name -->
+          <div class="field">
+            <label for="input-lastname">Last Name</label>
+            <input type="text" id="input-lastname" maxlength="30" autocomplete="off" placeholder="e.g. Smith" aria-describedby="err-lastname" />
+            <span class="error" id="err-lastname" aria-live="polite"></span>
+          </div>
+
+          <!-- Date of Birth — group label above, three fields in a row below -->
+          <div class="date-group">
+            <span class="date-group-label">Date of Birth</span>
+            <div class="date-row">
+              <div class="field">
+                <label for="input-month">Month</label>
+                <input type="number" id="input-month" min="1" max="12" inputmode="numeric" autocomplete="off" placeholder="01" aria-describedby="err-month" />
+                <span class="error" id="err-month" aria-live="polite"></span>
+              </div>
+              <div class="field">
+                <label for="input-day">Day</label>
+                <input type="number" id="input-day" min="1" max="31" inputmode="numeric" autocomplete="off" placeholder="01" aria-describedby="err-day" />
+                <span class="error" id="err-day" aria-live="polite"></span>
+              </div>
+              <div class="field">
+                <label for="input-year">Year</label>
+                <input type="number" id="input-year" min="1900" max="2099" inputmode="numeric" autocomplete="off" placeholder="1900" aria-describedby="err-year" />
+                <span class="error" id="err-year" aria-live="polite"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hometown -->
+          <div class="field">
+            <label for="input-city">Hometown</label>
+            <input type="text" id="input-city" maxlength="30" autocomplete="off" placeholder="e.g. Chicago" aria-describedby="err-city" />
+            <span class="error" id="err-city" aria-live="polite"></span>
+          </div>
+
+        </div>
+
+        <!-- Palette selector -->
+        <div id="palette-panel">
+          <span class="panel-label">Color Palette</span>
+          <div id="palette-cards"></div>
+        </div>
+
+        <button id="btn-generate" onclick="generateNebula()">Generate</button>
+
+      </div>
+
+      <div id="footer">Experimental Interaction &mdash; MCAD Summer &rsquo;26</div>
+
+    </div>
+
+    <!-- ── Screen 2: Result ── -->
+    <div id="screen-result" class="screen">
+      <div id="canvas-wrapper"></div>
+      <div id="result-controls">
+        <button class="result-btn" id="btn-save" onclick="saveNebula()">Save Image</button>
+        <button class="result-btn" id="btn-edit" onclick="goToEdit()">Edit</button>
+        <button class="result-btn" id="btn-new" onclick="startOver()">New Nebula</button>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.2/p5.min.js"></script>
+    <script src="sketch.js"></script>
+
+  </body>
+</html>

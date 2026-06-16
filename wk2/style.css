@@ -1,0 +1,401 @@
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Base ── */
+html, body {
+  height: 100%;
+  font-family: 'Space Mono', monospace;
+  background: #060610;
+  color: #d0d8f0;
+}
+
+/* ── Starfield — fixed behind everything ── */
+#starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* ── Screens ── */
+.screen {
+  position: relative;
+  z-index: 10;
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* ══════════════════════════════════════════
+   SCREEN 1 — Input
+══════════════════════════════════════════ */
+#screen-input {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px 64px;
+}
+
+/* ── Header ── */
+#header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: #6878a8;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* ── Form panel ── */
+#form-panel {
+  background: rgba(8, 10, 24, 0.88);
+  border: 1px solid #1e2448;
+  padding: 32px 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+  max-width: 520px;
+  backdrop-filter: blur(10px);
+}
+
+/* ── Instructions ── */
+#instructions {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #8898c8;
+  border-left: 2px solid #2a3060;
+  padding-left: 14px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Input fields ── */
+#input-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #8898c8;
+  font-weight: 700;
+}
+
+/* Single shared style for ALL inputs — text and number */
+input[type="text"],
+input[type="number"] {
+  background: #08091a;
+  border: 1px solid #2a3060;
+  color: #ffffff;
+  font-family: 'Space Mono', monospace;
+  font-size: 15px;
+  padding: 12px 14px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.05em;
+  border-radius: 0;
+  /* Kill all native browser styling */
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
+}
+
+/* Kill spinners in all browsers */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  display: none;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: #8898c8;
+  box-shadow: 0 0 0 2px rgba(136, 152, 200, 0.15);
+}
+
+input[type="text"]::placeholder,
+input[type="number"]::placeholder {
+  color: #2a3a60;
+}
+
+/* ── Error messages ── */
+.error {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: #ff4455;
+  min-height: 14px;
+  text-transform: uppercase;
+}
+
+/* ── Date of Birth group ── */
+.date-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.date-group-label {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #8898c8;
+  font-weight: 700;
+}
+
+.date-row {
+  display: flex;
+  gap: 12px;
+}
+
+.date-row .field {
+  flex: 1;
+  min-width: 0;
+}
+
+.date-row .field label {
+  font-size: 10px;
+  color: #6070a0;
+  letter-spacing: 0.2em;
+}
+
+/* ── Palette selector ── */
+#palette-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.panel-label {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #8898c8;
+  font-weight: 700;
+}
+
+#palette-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.palette-row {
+  display: flex;
+  gap: 8px;
+}
+
+/* All palette cards — uniform size */
+.palette-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #1e2448;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 80px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.palette-card:hover {
+  border-color: #8898c8;
+}
+
+.palette-card.active {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 1px #ffffff;
+}
+
+/* Keyboard focus ring (cards are focusable buttons) */
+.palette-card:focus-visible {
+  outline: none;
+  border-color: #8898c8;
+  box-shadow: 0 0 0 2px rgba(136, 152, 200, 0.45);
+}
+
+/* Swatches inside each card */
+.palette-card .swatches {
+  display: flex;
+  gap: 2px;
+}
+
+.palette-card .swatch {
+  width: 14px;
+  height: 30px;
+}
+
+/* RANDOM card text */
+.palette-card.random-card {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: #8898c8;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.palette-card.random-card:hover,
+.palette-card.random-card.active {
+  color: #ffffff;
+}
+
+/* ── Generate button ── */
+#btn-generate {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 16px 32px;
+  border: 1px solid #8898c8;
+  background: transparent;
+  color: #ffffff;
+  width: 100%;
+  transition: background 0.2s, color 0.2s;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+#btn-generate:hover {
+  background: #8898c8;
+  color: #060610;
+}
+
+/* ── Footer ── */
+#footer {
+  margin-top: 32px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: #2a3060;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* ══════════════════════════════════════════
+   SCREEN 2 — Result
+══════════════════════════════════════════ */
+#screen-result {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 24px;
+}
+
+#screen-result.active {
+  display: flex;
+}
+
+/* ── Canvas wrapper ── */
+#canvas-wrapper {
+  position: relative;
+  line-height: 0;
+  border: 1px solid #1e2448;
+  max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 140px);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+#canvas-wrapper canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+}
+
+/* ── Result buttons ── */
+#result-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.result-btn {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 12px 24px;
+  background: transparent;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+#btn-save {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+}
+
+#btn-save:hover {
+  background: #ffffff;
+  color: #060610;
+}
+
+#btn-edit {
+  border: 1px solid #4a5480;
+  color: #8898c8;
+}
+
+#btn-edit:hover {
+  border-color: #8898c8;
+  color: #ffffff;
+}
+
+#btn-new {
+  border: 1px solid #2a3060;
+  color: #4a5480;
+}
+
+#btn-new:hover {
+  border-color: #4a5480;
+  color: #8898c8;
+}
